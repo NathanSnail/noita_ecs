@@ -1,4 +1,7 @@
----@class (exact) ecs.set<T>: {[T]: true, add: fun(self: ecs.set<T>, el: T), remove: fun(self: ecs.set<T>, el: T), stringify: fun(self: ecs.set<T>): string}
+---@class (exact) ecs.tags: {[string]: true?}
+---@field add fun(self: ecs.tags, el: string)
+---@field remove fun(self: ecs.tags, el: string)
+---@field stringify fun(self: ecs.tags): string
 
 ---@class (exact) ecs.transform
 ---@field x number
@@ -13,7 +16,7 @@
 ---@class (exact) ecs.component
 ---@field enabled boolean
 ---@field values {[string]: any}
----@field tags ecs.set<string>
+---@field tags ecs.tags
 ---@field entity ecs.entity
 ---@field objects {[string]: component_object}
 ---@field id component_id
@@ -22,10 +25,10 @@
 ---@class (exact) ecs.entity
 ---@field filename string
 ---@field name string
----@field tags ecs.set<string>
+---@field tags ecs.tags
 ---@field transform ecs.transform
 ---@field alive boolean
 ---@field components ecs.component[]
 ---@field children ecs.entity[]
----@field parent ecs.entity
+---@field parent ecs.entity?
 ---@field id entity_id
