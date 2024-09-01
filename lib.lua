@@ -2,13 +2,14 @@
 local M = {}
 
 ---@type (fun(file: string): any)?
-ACQUIRE = ACQUIRE or function(file)
+ECS_ACQUIRE = ECS_ACQUIRE or function(file)
 	return require(file)
 end
 
-local transform_mt = ACQUIRE("transform")
-local entity_mt = ACQUIRE("entity")
-local component_mt = ACQUIRE("component")
+local transform_mt = ECS_ACQUIRE("transform")
+local component_mt = ECS_ACQUIRE("component")
+-- ew forward declare
+local entity_mt
 
 ---@param eid entity_id
 ---@return ecs.transform
@@ -24,6 +25,7 @@ function M.entity(eid)
 	local ent = { filename = EntityGetFilename(eid), id = eid, transform = construct_transform(eid) } -- the other fields must be dynamically created on request
 	return setmetatable(ent, entity_mt)
 end
+entity_mt = ECS_ACQUIRE("entity")(M)
 
-ACQUIRE = nil
+ECS_ACQUIRE = nil
 return M
