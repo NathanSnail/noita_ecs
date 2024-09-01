@@ -31,6 +31,7 @@ return function(ecs)
 		if t[field] then
 			return t[field]()
 		end
+		print(field)
 		return rawget(self, field)
 	end
 	---@diagnostic disable-next-line: inject-field
