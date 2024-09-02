@@ -76,6 +76,19 @@ return function(ecs)
 					EntityAddChild(self.id, child.id)
 				end
 			end,
+			tags = function()
+				if getmetatable(value) then
+					value = value()
+				end
+				for _, tag in ipairs(self.tags()) do
+					EntityRemoveTag(self.id, tag)
+				end
+				for k, v in pairs(value) do
+					if v then
+						EntityAddTag(self.id, k)
+					end
+				end
+			end,
 		}
 		if not t[field] then
 			error("illegal entity field to write to: " .. field)
