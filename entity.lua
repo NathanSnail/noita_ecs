@@ -77,16 +77,21 @@ return function(ecs)
 				end
 			end,
 			tags = function()
-				if getmetatable(value) then
+				if type(value) == "sting" then
+					local t = {}
+					for v in value:gmatch("[^,]+") do
+						table.insert(v, t)
+					end
+					value = t
+				end
+				if getmetatable(value).__call then
 					value = value()
 				end
 				for _, tag in ipairs(self.tags()) do
 					EntityRemoveTag(self.id, tag)
 				end
-				for k, v in pairs(value) do
-					if v then
-						EntityAddTag(self.id, k)
-					end
+				for _, v in ipairs(value) do
+					EntityAddTag(self.id, v)
 				end
 			end,
 		}

@@ -21,7 +21,7 @@ local function construct_tag_mt(read, add, remove, str)
 	---@diagnostic disable-next-line: assign-type-mismatch
 	function tag_mt:__call()
 		local t = {}
-		for _, v in str():gmatch("[^,]+") do
+		for v in str():gmatch("[^,]+") do
 			table.insert(t, v)
 		end
 		return t
