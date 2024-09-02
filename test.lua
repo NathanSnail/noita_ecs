@@ -150,3 +150,10 @@ assert(not ent2.tags.animal)
 ent.tags = ent2.tags
 assert(ent.tags.evil)
 assert(not ent.tags.animal)
+
+ent.tags = "a,b,c"
+assert(#ent.tags() == 3)
+ent.tags = { "hi", "there" }
+assert(#ent.tags() == 2)
+ent.tags = { hamis = true, small = true, animal = true, deadly = false }
+assert(#ent.tags() == 3)

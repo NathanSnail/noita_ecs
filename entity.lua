@@ -77,15 +77,24 @@ return function(ecs)
 				end
 			end,
 			tags = function()
-				if type(value) == "sting" then
+				if type(value) == "string" then
 					local t = {}
 					for v in value:gmatch("[^,]+") do
-						table.insert(v, t)
+						t[v] = true
 					end
 					value = t
 				end
-				if getmetatable(value).__call then
+				local mt = getmetatable(value)
+				if mt and mt.__call then
 					value = value()
+				elseif #value == 0 then
+					local new = {}
+					for k, v in pairs(value) do
+						if v then
+							table.insert(new, k)
+						end
+					end
+					value = new
 				end
 				for _, tag in ipairs(self.tags()) do
 					EntityRemoveTag(self.id, tag)
