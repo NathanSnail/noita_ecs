@@ -146,3 +146,5 @@ ent2.tags.evil = true
 ent2.tags.animal = false
 assert(ent2.tags["evil"])
 assert(not ent2.tags.animal)
+
+ent.tags = ent2.tags
