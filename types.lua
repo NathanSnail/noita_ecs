@@ -1,7 +1,15 @@
----@class (exact) ecs.tags: {[string]: true?}
----@field add fun(self: ecs.tags, el: string)
----@field remove fun(self: ecs.tags, el: string)
----@field stringify fun(self: ecs.tags): string
+---@class (exact) ecs.tags: {[string]: boolean}
+---@operator call: string[]
+
+---@class (exact) ecs.vec
+---@field x number
+---@field y number
+---@operator add(ecs.vec): ecs.vec
+---@operator sub(ecs.vec): ecs.vec
+---@operator unm: ecs.vec
+---@operator len: number
+---@operator mul(number): ecs.vec
+---@operator div(number): ecs.vec
 
 ---@class (exact) ecs.transform
 ---@field x number
@@ -10,7 +18,7 @@
 ---@field scale_x number
 ---@field scale_y number
 
----@class (exact) component_object
+---@class (exact) ecs.component_object
 ---@field values {[string]: any}
 
 ---@class (exact) ecs.component
@@ -18,7 +26,7 @@
 ---@field values {[string]: any}
 ---@field tags ecs.tags
 ---@field entity ecs.entity
----@field objects {[string]: component_object}
+---@field objects {[string]: ecs.component_object}
 ---@field id component_id
 ---@field remove fun(self: ecs.component)
 
