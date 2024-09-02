@@ -1,3 +1,5 @@
+local tag_mt = ECS_ACQUIRE("tags")
+
 return function(ecs)
 	---@cast ecs ecs.ecs
 	---@type ecs.entity
@@ -27,11 +29,24 @@ return function(ecs)
 				end
 				return children_ents
 			end,
+			tags = function()
+				return setmetatable(
+					{},
+					tag_mt(function(val)
+						return EntityHasTag(self.id, val)
+					end, function(val)
+						EntityAddTag(self.id, val)
+					end, function(val)
+						EntityRemoveTag(self.id, val)
+					end, function()
+						return EntityGetTags(self.id)
+					end)
+				)
+			end,
 		}
 		if t[field] then
 			return t[field]()
 		end
-		print(field)
 		return rawget(self, field)
 	end
 	---@diagnostic disable-next-line: inject-field

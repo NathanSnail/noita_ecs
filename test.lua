@@ -6,6 +6,7 @@ local deceive = _G
 
 local transforms = { { 10, 20, 0, 1, 1 }, { 30, 40, 90, 2, 3 } }
 local filenames = { "hamis", "dog" }
+local tags = { { animal = true, evil = true }, { animal = true } }
 local names = { "silly", "cat" }
 local parents = { 0, 1 }
 
@@ -110,3 +111,38 @@ assert(#ent.children == 0)
 	assert(not ok)
 	print(res)
 ]]
+
+-- test tags
+
+---@diagnostic disable-next-line: inject-field
+function deceive.EntityHasTag(entity_id, tag)
+	return tags[entity_id][tag] == true
+end
+
+---@diagnostic disable-next-line: inject-field
+function deceive.EntityAddTag(entity_id, tag)
+	tags[entity_id][tag] = true
+end
+
+---@diagnostic disable-next-line: inject-field
+function deceive.EntityRemoveTag(entity_id, tag)
+	tags[entity_id][tag] = nil
+end
+
+---@diagnostic disable-next-line: inject-field
+function deceive.EntityGetTags(entity_id)
+	local s = ""
+	for k, _ in pairs(tags[entity_id]) do
+		s = s .. k .. ","
+	end
+	s = s:sub(1, #s - 1)
+	return s
+end
+
+assert(tostring(ent.tags) == "evil,animal" or tostring(ent.tags) == "animal,evil")
+assert(ent.tags["evil"])
+assert(not ent2.tags["evil"])
+ent2.tags.evil = true
+ent2.tags.animal = false
+assert(ent2.tags["evil"])
+assert(not ent2.tags.animal)
