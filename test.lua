@@ -151,6 +151,8 @@ ent.tags = ent2.tags
 assert(ent.tags.evil)
 assert(not ent.tags.animal)
 
+-- not sure how to gaslight the type system into believing this is normal, maybe inherit some more stuff?
+-- or perhaps this feature is cursed and should be deleted.
 ent.tags = "a,b,c"
 assert(#ent.tags() == 3)
 ent.tags = { "hi", "there" }

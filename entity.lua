@@ -14,6 +14,9 @@ return function(ecs)
 			alive = function()
 				return EntityGetIsAlive(self.id)
 			end,
+			components = function()
+				local comps = EntityGetAllComponents(self.id)
+			end,
 			parent = function()
 				local parent = EntityGetParent(self.id)
 				if parent == 0 then

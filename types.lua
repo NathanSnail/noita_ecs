@@ -23,11 +23,12 @@
 
 ---@class (exact) ecs.component
 ---@field enabled boolean
----@field values {[string]: any}
+---@field fields {[string]: any}
 ---@field tags ecs.tags
 ---@field entity ecs.entity
 ---@field objects {[string]: ecs.component_object}
 ---@field id component_id
+---@field type component_type
 ---@field remove fun(self: ecs.component)
 
 ---@class (exact) ecs.entity
